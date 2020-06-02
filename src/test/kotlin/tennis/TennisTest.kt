@@ -29,6 +29,16 @@ class TennisTest {
         game.score.shouldBeEqualTo("love-fifteen")
     }
 
+    @Test
+    fun `when both players score, game is 'fifteen-fifteen'`(){
+        val game = Game.new()
+
+        game.player1Scores()
+        game.player2Scores()
+
+        game.score.shouldBeEqualTo("fifteen-fifteen")
+    }
+
     class Game private constructor() {
         private var player1Score = 0
         private var player2Score = 0
