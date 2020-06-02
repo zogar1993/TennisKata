@@ -6,14 +6,14 @@ import org.junit.Test
 class TennisTest {
     @Test
     fun `a new game starts as 'love-love'`(){
-        val game = Game.new()
+        val game = `new game`()
 
         game.score.shouldBeEqualTo("love-love")
     }
 
     @Test
     fun `the game being 'love-love', player 1 scores, game is 'fifteen-love'`(){
-        val game = Game.new()
+        val game = `new game`()
 
         game.player1Scores()
 
@@ -22,7 +22,7 @@ class TennisTest {
 
     @Test
     fun `the game being 'love-love', player 2 scores, game is 'love-fifteen'`(){
-        val game = Game.new()
+        val game = `new game`()
 
         game.player2Scores()
 
@@ -31,7 +31,7 @@ class TennisTest {
 
     @Test
     fun `when both players score, game is 'fifteen-fifteen'`(){
-        val game = Game.new()
+        val game = `new game`()
 
         game.player1Scores()
         game.player2Scores()
@@ -39,32 +39,43 @@ class TennisTest {
         game.score.shouldBeEqualTo("fifteen-fifteen")
     }
 
-    class Game private constructor() {
-        private var player1Score = 0
-        private var player2Score = 0
+    @Test
+    fun `the game being 'fifteen-fifteen', player 1 scores, game is 'thirty-fifteen'`(){
+        val game = `fifteen-fifteen game`()
 
-        fun player1Scores() {
-            player1Score++
-        }
+        game.player1Scores()
 
-        fun player2Scores() {
-            player2Score++
-        }
+        game.score.shouldBeEqualTo("thirty-fifteen")
+    }
 
-        val score: String get() {
-            return "${scoreToText(player1Score)}-${scoreToText(player2Score)}"
-        }
+    @Test
+    fun `the game being 'fifteen-fifteen', player 2 scores, game is 'fifteen-thirty'`(){
+        val game = `fifteen-fifteen game`()
 
-        private fun scoreToText(score: Int): String {
-            return when (score) {
-                0 -> "love"
-                1 -> "fifteen"
-                else -> throw NotImplementedError()
-            }
-        }
+        game.player2Scores()
 
-        companion object {
-            fun new() = Game()
-        }
+        game.score.shouldBeEqualTo("fifteen-thirty")
+    }
+
+    @Test
+    fun `the game being 'fifteen-fifteen', both players score, game is 'thirty-thirty'`(){
+        val game = `fifteen-fifteen game`()
+
+        game.player1Scores()
+        game.player2Scores()
+
+        game.score.shouldBeEqualTo("thirty-thirty")
+    }
+
+    private fun `new game`(): Game {
+        return Game.new()
+    }
+
+    private fun `fifteen-fifteen game`(): Game {
+        val game = Game.new()
+
+        game.player1Scores()
+        game.player2Scores()
+        return game
     }
 }
