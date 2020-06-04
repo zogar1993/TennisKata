@@ -3,7 +3,7 @@ package tennis
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Test
 
-class TennisTest {
+class SimpleScoresTest {
     @Test
     fun `a new game starts as 'love-love'`(){
         val game = `new game`()
@@ -67,6 +67,24 @@ class TennisTest {
         game.score.shouldBeEqualTo("thirty-thirty")
     }
 
+    @Test
+    fun `the game being 'thirty-thirty', player 1 scores, game is 'forty-thirty'`(){
+        val game = `thirty-thirty game`()
+
+        game.player1Scores()
+
+        game.score.shouldBeEqualTo("forty-thirty")
+    }
+
+    @Test
+    fun `the game being 'thirty-thirty', player 2 scores, game is 'thirty-forty'`(){
+        val game = `thirty-thirty game`()
+
+        game.player2Scores()
+
+        game.score.shouldBeEqualTo("thirty-forty")
+    }
+
     private fun `new game`(): Game {
         return Game.new()
     }
@@ -76,6 +94,19 @@ class TennisTest {
 
         game.player1Scores()
         game.player2Scores()
+        game.score.shouldBeEqualTo("fifteen-fifteen")
+
+        return game
+    }
+
+    private fun `thirty-thirty game`(): Game {
+        val game = `fifteen-fifteen game`()
+
+        game.player1Scores()
+        game.player2Scores()
+        game.score.shouldBeEqualTo("thirty-thirty")
+
         return game
     }
 }
+
