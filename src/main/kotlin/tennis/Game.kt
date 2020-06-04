@@ -1,14 +1,18 @@
 package tennis
 
+import kotlin.math.abs
+
 class Game private constructor() {
     private var player1Score = 0
     private var player2Score = 0
 
     fun player1Scores() {
+        if (gameAlreadyFinished) throw GameAlreadyFinished()
         player1Score++
     }
 
     fun player2Scores() {
+        if (gameAlreadyFinished) throw GameAlreadyFinished()
         player2Score++
     }
 
@@ -47,6 +51,12 @@ class Game private constructor() {
 
     private val atLeast3PointsWhereScoredByEachPlayer get() =
         player1Score >= 3 && player2Score >= 3
+
+    private val gameAlreadyFinished get() =
+        if (atLeast3PointsWhereScoredByEachPlayer)
+            abs(player1Score - player2Score) == 2
+        else player1Score == 4 || player2Score == 4
+
 
     private fun scoreToText(score: Int): String {
         return when (score) {

@@ -84,29 +84,5 @@ class SimpleScoresTest {
 
         game.score.shouldBeEqualTo("thirty-forty")
     }
-
-    private fun `new game`(): Game {
-        return Game.new()
-    }
-
-    private fun `fifteen-fifteen game`(): Game {
-        val game = Game.new()
-
-        game.player1Scores()
-        game.player2Scores()
-        game.score.shouldBeEqualTo("fifteen-fifteen")
-
-        return game
-    }
-
-    private fun `thirty-thirty game`(): Game {
-        val game = `fifteen-fifteen game`()
-
-        game.player1Scores()
-        game.player2Scores()
-        game.score.shouldBeEqualTo("thirty-thirty")
-
-        return game
-    }
 }
 

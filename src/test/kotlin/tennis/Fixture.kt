@@ -72,3 +72,7 @@ fun `advantage for player 2 game`(): Game {
     game.score.shouldBeEqualTo("advantage for player 2")
     return game
 }
+
+fun shouldHaveFailed() {
+    assert(false) { "expected a failure" }
+}
