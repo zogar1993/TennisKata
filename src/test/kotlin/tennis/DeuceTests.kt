@@ -24,7 +24,7 @@ class DeuceTests {
 
     @Test
     fun `the game being 'advantage player 1', player 2 scores, game is 'deuce'`(){
-        val game = `advantage for player 1`()
+        val game = `advantage for player 1 game`()
 
         game.player2Scores()
 
@@ -33,7 +33,7 @@ class DeuceTests {
 
     @Test
     fun `the game being 'advantage for player 2', player 1 scores, game is 'deuce'`(){
-        val game = `advantage for player 2`()
+        val game = `advantage for player 2 game`()
 
         game.player1Scores()
 

@@ -13,19 +13,40 @@ class Game private constructor() {
     }
 
     val score: String get() {
-        if (atLeast3PointsWhereScoredByEachPlayer()){
-            if (playerScoresAreEqual()) return "deuce"
-            if (player1ScoreIsOneMoreThanHisOpponents()) return "advantage for player 1"
-            if (player2ScoreIsOneMoreThanHisOpponents()) return "advantage for player 2"
+        if (atLeast3PointsWhereScoredByEachPlayer){
+            return when {
+                playerScoresAreEqual -> "deuce"
+                player1ScoreIsOneMoreThanHisOpponents -> "advantage for player 1"
+                player2ScoreIsOneMoreThanHisOpponents -> "advantage for player 2"
+                player1ScoreIsTwoMoreThanHisOpponents -> "player 1 won the game"
+                player2ScoreIsTwoMoreThanHisOpponents -> "player 2 won the game"
+                else -> throw NotImplementedError()
+            }
         }
+
+        if (player1Score == 4) return "player 1 won the game"
+        if (player2Score == 4) return "player 2 won the game"
 
         return "${scoreToText(player1Score)}-${scoreToText(player2Score)}"
     }
 
-    private fun player1ScoreIsOneMoreThanHisOpponents() = player1Score == player2Score + 1
-    private fun player2ScoreIsOneMoreThanHisOpponents() = player2Score == player1Score + 1
-    private fun playerScoresAreEqual() = player1Score == player2Score
-    private fun atLeast3PointsWhereScoredByEachPlayer() = player1Score >= 3 && player2Score >= 3
+    private val player1ScoreIsOneMoreThanHisOpponents get() =
+        player1Score == player2Score + 1
+
+    private val player2ScoreIsOneMoreThanHisOpponents get() =
+        player2Score == player1Score + 1
+
+    private val player1ScoreIsTwoMoreThanHisOpponents get() =
+        player1Score == player2Score + 2
+
+    private val player2ScoreIsTwoMoreThanHisOpponents get() =
+        player2Score == player1Score + 2
+
+    private val playerScoresAreEqual get() =
+        player1Score == player2Score
+
+    private val atLeast3PointsWhereScoredByEachPlayer get() =
+        player1Score >= 3 && player2Score >= 3
 
     private fun scoreToText(score: Int): String {
         return when (score) {

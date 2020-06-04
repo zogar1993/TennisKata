@@ -55,7 +55,7 @@ fun `deuce game`(): Game {
     return game
 }
 
-fun `advantage for player 1`(): Game {
+fun `advantage for player 1 game`(): Game {
     val game = `deuce game`()
 
     game.player1Scores()
@@ -64,7 +64,7 @@ fun `advantage for player 1`(): Game {
     return game
 }
 
-fun `advantage for player 2`(): Game {
+fun `advantage for player 2 game`(): Game {
     val game = `deuce game`()
 
     game.player2Scores()
