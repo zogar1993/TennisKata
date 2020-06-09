@@ -11,14 +11,12 @@ class Game private constructor() {
         _score = _score.player2Scores()
     }
 
-    val score: String get()  = _score.score()
+    val score: String get() = _score.score()
 
     companion object {
         fun new() = Game()
     }
 }
-
-
 
 interface Score {
     fun player1Scores(): Score
