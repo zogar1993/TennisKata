@@ -1,35 +1,27 @@
 package circular_primes
 
+import circular.isCircularPrime
 import org.junit.Test
 
 class CircularPrimesTest {
     @Test
-    fun `prime numbers`(){
+    fun `circular prime numbers`(){
         val circularPrimes = arrayOf(2, 3, 5, 7, 11, 13, 17, 37, 79, 113, 197, 199, 337, 1193, 3779, 11939)
-        val notCircularPrimes = arrayOf(1, 4, 6, 8, 9, 10, 12, 15, 21, 27, 51, 89)
+
         circularPrimes.forEach { assert(isCircularPrime(it)) { "$it should be a circular prime" } }
-        notCircularPrimes.forEach { assert(!isCircularPrime(it)) { "$it should not be a circular prime" } }
     }
 
-    fun isCircularPrime(value: Int): Boolean {
-        if (value == 1) return false
-        if (value == 2) return true
-        if (value.isEven()) return false
-        val values = valueMutations(value)
-        for (i in 3 until value step 2)
-            if (values.any { it % i == 0 })
-                return false
-        return true
+    @Test
+    fun `non prime numbers`(){
+        val nonPrimes = arrayOf(1, 4, 6, 8, 9, 10, 12, 15, 21, 27, 51)
+
+        nonPrimes.forEach { assert(!isCircularPrime(it)) { "$it should not be a circular prime" } }
     }
 
-    private fun valueMutations(value: Int): List<Int> {
-        val string = value.toString()
-        return (0 until string.length).map {
-            val firstPart = string.substring(0, it)
-            val secondPart = string.substring(it, string.length)
-            "$secondPart$firstPart".toInt()
-        }
-    }
+    @Test
+    fun `non circular primes`(){
+        val nonCircularPrimes = arrayOf(61, 67, 83, 89)
 
-    private fun Int.isEven() = this % 2 == 0
+        nonCircularPrimes.forEach { assert(!isCircularPrime(it)) { "$it should not be a circular prime" } }
+    }
 }
