@@ -1,10 +1,11 @@
 package enchantment
 
 import enchantment.actions.EnchantWeapon
+import enchantment.actions.RerollEnchantmentOnWeapon
 import enchantment.domain.Enchantments
-import enchantment.infrastructure.WeaponsInMemory
-import io.mockk.spyk
+import enchantment.domain.Weapons
 
-val weapons = WeaponsInMemory()
-val enchantments = spyk(Enchantments())
-val enchantWeapon = EnchantWeapon(weapons, enchantments)
+lateinit var weapons: Weapons
+lateinit var enchantments: Enchantments
+lateinit var enchantWeapon: EnchantWeapon
+lateinit var rerollEnchantmentOnWeapon: RerollEnchantmentOnWeapon

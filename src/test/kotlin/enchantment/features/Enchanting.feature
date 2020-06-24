@@ -1,6 +1,7 @@
 Feature: Enchanting a weapon
 
   Background:
+    Given all state is cleaned
 
   Scenario Outline: Enchanted weapons display their name correctly
     Given a weapon
@@ -15,7 +16,6 @@ Feature: Enchanting a weapon
       | "Agility"   | "Quick"   |
       | "Strength"  | "Angry"   |
 
-
   Scenario Outline: Enchanted weapons display their attributes correctly
     Given a weapon
     Given enchanting a weapon will use the <enchantment> enchantment
@@ -28,3 +28,7 @@ Feature: Enchanting a weapon
       | "Lifesteal" | "+5 lifesteal"   |
       | "Agility"   | "+5 agility"     |
       | "Strength"  | "+5 strength"    |
+
+  Scenario: Enchanted weapons cannot be enchanted again
+    Given an enchanted weapon
+    When the weapon is enchanted, it should fail because it was already enchanted

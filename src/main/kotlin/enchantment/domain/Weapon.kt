@@ -2,7 +2,7 @@ package enchantment.domain
 
 class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpeed: Double) {
     private val baseName = name
-    private var enchantment: Enchantment? = null
+    var enchantment: Enchantment? = null; private set
     val attribute get() = enchantment?.enchantment
 
     val name get() = if (enchantment == null) baseName else "${enchantment!!.prefix} $baseName"
@@ -10,4 +10,5 @@ class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpe
         this.enchantment = enchantment
     }
 
+    fun hasEnchantment() = enchantment != null
 }

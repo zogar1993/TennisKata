@@ -9,4 +9,8 @@ open class Enchantments(private val getRandomNumber: () -> Int = { random().toIn
         val index = getRandomNumber() % enchantments.size
         return enchantments[index]
     }
+
+    fun getOneAtRandomExceptFor(enchantment: Enchantment): Enchantment {
+        return getOneAtRandom()
+    }
 }
