@@ -1,6 +1,5 @@
 package circular_primes
 
-import circular.isCircularPrime
 import org.junit.Test
 
 class CircularPrimesTest {

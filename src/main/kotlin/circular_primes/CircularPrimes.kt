@@ -1,4 +1,4 @@
-package circular
+package circular_primes
 
 fun isCircularPrime(value: Int): Boolean {
     if (value == 1) return false
