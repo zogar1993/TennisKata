@@ -1,5 +1,7 @@
 Feature: Enchanting a weapon
 
+  Background:
+
   Scenario Outline: Enchanted weapons display their name correctly
     Given a weapon
     Given enchanting a weapon will use the <enchantment> enchantment

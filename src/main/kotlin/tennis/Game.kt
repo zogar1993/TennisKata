@@ -26,7 +26,7 @@ interface Score {
 
 class SimpleScore(
         private val player1Score: Int = 0,
-        private val player2Score: Int = 0): Score {
+        private val player2Score: Int = 0) : Score {
     override fun player1Scores(): Score {
         val player1Score = player1Score + 1
         if (player1Score == 4 && player2Score < 3) return Player1WonScore
@@ -60,31 +60,31 @@ class SimpleScore(
     }
 }
 
-object Player1WonScore: Score {
+object Player1WonScore : Score {
     override fun player1Scores(): Score = throw GameAlreadyFinished()
     override fun player2Scores(): Score = throw GameAlreadyFinished()
     override fun score(): String = "player 1 won the game"
 }
 
-object Player2WonScore: Score {
+object Player2WonScore : Score {
     override fun player1Scores(): Score = throw GameAlreadyFinished()
     override fun player2Scores(): Score = throw GameAlreadyFinished()
     override fun score(): String = "player 2 won the game"
 }
 
-object DeuceScore: Score {
+object DeuceScore : Score {
     override fun player1Scores(): Score = AdvantagePlayer1Score
     override fun player2Scores(): Score = AdvantagePlayer2Score
     override fun score(): String = "deuce"
 }
 
-object AdvantagePlayer1Score: Score {
+object AdvantagePlayer1Score : Score {
     override fun player1Scores(): Score = Player1WonScore
     override fun player2Scores(): Score = DeuceScore
     override fun score(): String = "advantage for player 1"
 }
 
-object AdvantagePlayer2Score: Score {
+object AdvantagePlayer2Score : Score {
     override fun player1Scores(): Score = DeuceScore
     override fun player2Scores(): Score = Player2WonScore
     override fun score(): String = "advantage for player 2"
