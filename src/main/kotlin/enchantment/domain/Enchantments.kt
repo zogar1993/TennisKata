@@ -5,12 +5,9 @@ import java.lang.Math.random
 open class Enchantments(private val getRandomNumber: () -> Int = { random().toInt() }) {
     private val enchantments = Enchantment.values()
 
-    open fun getOneAtRandom(): Enchantment {
+    open fun getOneAtRandom(vararg exceptions: Enchantment): Enchantment {
+        val enchantments = enchantments.filter { it !in exceptions }
         val index = getRandomNumber() % enchantments.size
         return enchantments[index]
-    }
-
-    fun getOneAtRandomExceptFor(enchantment: Enchantment): Enchantment {
-        return getOneAtRandom()
     }
 }

@@ -16,7 +16,7 @@ class RerollEnchantmentOnWeapon(private val weapons: Weapons,
         if (shouldItDisenchant()) {
             weapon.removeEnchantment()
         } else {
-            val enchantment = enchantments.getOneAtRandomExceptFor(weapon.enchantment!!)
+            val enchantment = enchantments.getOneAtRandom(weapon.enchantment!!)
             weapon.add(enchantment)
         }
 
