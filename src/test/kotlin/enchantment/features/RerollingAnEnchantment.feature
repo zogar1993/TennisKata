@@ -17,6 +17,12 @@ Feature: Rerolling an enchantment
       | "Ice"       | "Agility"       | "Quick"   | "+5 agility"     |
       | "Ice"       | "Strength"      | "Angry"   | "+5 strength"    |
 
+  Scenario: Weapon may be disenchanted
+    Given an enchanted weapon
+    Given rerolling an enchantment will cause a disenchantment
+    When the weapons enchantment is rerolled
+    Then the weapon should be disenchanted
+
   Scenario: Non enchanted weapons cannot be rerolled an enchantment
     Given a weapon
     When the weapons enchantment is rerolled, it should fail because it was not enchanted

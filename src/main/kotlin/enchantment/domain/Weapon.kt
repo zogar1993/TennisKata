@@ -11,4 +11,7 @@ class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpe
     }
 
     fun hasEnchantment() = enchantment != null
+    fun removeEnchantment() {
+        enchantment = null
+    }
 }
