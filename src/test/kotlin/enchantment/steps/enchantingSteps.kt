@@ -15,7 +15,10 @@ import enchantment.domain.errors.NotEnchantedError
 import enchantment.infrastructure.WeaponsInMemory
 import io.mockk.every
 import io.mockk.spyk
-import org.amshove.kluent.*
+import org.amshove.kluent.shouldBeEqualTo
+import org.amshove.kluent.shouldBeFalse
+import org.amshove.kluent.shouldBeInstanceOf
+import org.amshove.kluent.shouldContainSame
 import kotlin.test.fail
 
 class EnchantingSteps {
@@ -37,7 +40,7 @@ class EnchantingSteps {
 
     @Given("enchanting a weapon will use the {string} enchantment")
     fun `enchanting a weapon will use the {enchantment} enchantment`(enchantment: String) {
-        every { enchantments.getOneAtRandom() } returns Enchantment.from(enchantment)
+        every { enchantments.getOneAtRandomExceptFor(any()) } returns Enchantment.from(enchantment)
     }
 
     @Given("an enchanted weapon")
@@ -80,7 +83,7 @@ class EnchantingSteps {
 
     @When("the weapon is enchanted with {string}")
     fun `the weapon is enchanted with {enchantment}`(enchantment: String) {
-        every { enchantments.getOneAtRandom() } returns Enchantment.from(enchantment)
+        every { enchantments.getOneAtRandomExceptFor(any()) } returns Enchantment.from(enchantment)
         enchantWeapon(ID)
     }
 
@@ -126,7 +129,7 @@ class EnchantingSteps {
     fun `the weapon should be disenchanted`() {
         val weapon = weapons.findOne(ID)
 
-        weapon.enchantments.shouldBeEmpty()
+        weapon.isEnchanted().shouldBeFalse()
     }
 
     companion object {

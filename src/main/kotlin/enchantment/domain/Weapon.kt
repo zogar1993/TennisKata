@@ -11,13 +11,12 @@ class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpe
         _enchantments.add(enchantment)
     }
 
-    fun mayBeEnchanted(): Boolean {
-        return _enchantments.size < MAX_ENCHANTMENTS
-    }
-
     fun removeEnchantment() {
         _enchantments.removeAt(0)
     }
+
+    fun mayBeEnchanted() = _enchantments.size < MAX_ENCHANTMENTS
+    fun isEnchanted() = enchantments.isNotEmpty()
 }
 
 private const val MAX_ENCHANTMENTS = 3

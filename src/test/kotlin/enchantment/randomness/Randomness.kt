@@ -10,7 +10,7 @@ import org.junit.Test
 class Randomness {
     @Test
     fun `get one at random should return any enchantment`() {
-        val enchantments = (1..100).map { Enchantments { it }.getOneAtRandom() }
+        val enchantments = (1..100).map { Enchantments { it }.getOneAtRandomExceptFor(NO_ENCHANTMENTS) }
         enchantments.toSet().shouldContainSame(ALL_ENCHANTMENTS)
     }
 
@@ -29,6 +29,7 @@ class Randomness {
     private companion object {
         val AN_ENCHANTMENT = Enchantment.Agility
         val ALL_ENCHANTMENTS = Enchantment.values()
+        val NO_ENCHANTMENTS = emptyList<Enchantment>()
         operator fun Array<Enchantment>.minus(enchantment: Enchantment): List<Enchantment> {
             return this.filter { it != enchantment }
         }

@@ -11,7 +11,7 @@ class EnchantWeapon(private val weapons: Weapons,
 
         if (!weapon.mayBeEnchanted()) throw AlreadyAtMaximumEnchantments()
 
-        val enchantment = enchantments.getOneAtRandom()
+        val enchantment = enchantments.getOneAtRandomExceptFor(weapon.enchantments)
         weapon.add(enchantment)
 
         weapons.put(id, weapon)

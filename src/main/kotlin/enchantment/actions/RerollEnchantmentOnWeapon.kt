@@ -11,7 +11,7 @@ class RerollEnchantmentOnWeapon(private val weapons: Weapons,
     operator fun invoke(id: Long) {
         val weapon = weapons.findOne(id)
 
-        if (weapon.enchantments.isEmpty()) throw NotEnchantedError()
+        if (!weapon.isEnchanted()) throw NotEnchantedError()
 
         if (shouldItDisenchant()) {
             weapon.removeEnchantment()
@@ -20,7 +20,6 @@ class RerollEnchantmentOnWeapon(private val weapons: Weapons,
             weapon.removeEnchantment()
             weapon.add(enchantment)
         }
-
 
         weapons.put(id, weapon)
     }
