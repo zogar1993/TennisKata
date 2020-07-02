@@ -28,7 +28,3 @@ Feature: Enchanting a weapon
       | "Lifesteal" | "+5 lifesteal"   |
       | "Agility"   | "+5 agility"     |
       | "Strength"  | "+5 strength"    |
-
-  Scenario: Enchanted weapons cannot be enchanted again
-    Given an enchanted weapon
-    When the weapon is enchanted, it should fail because it was already enchanted

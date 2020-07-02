@@ -2,16 +2,22 @@ package enchantment.domain
 
 class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpeed: Double) {
     private val baseName = name
-    var enchantment: Enchantment? = null; private set
-    val attribute get() = enchantment?.enchantment
+    private val _enchantments: MutableList<Enchantment> = mutableListOf()
+    val enchantments: List<Enchantment> = _enchantments
+    val attributes get() = enchantments.map { it.attribute }
 
-    val name get() = if (enchantment == null) baseName else "${enchantment!!.prefix} $baseName"
+    val name get() = if (enchantments.isEmpty()) baseName else "${enchantments[0].prefix} $baseName"
     fun add(enchantment: Enchantment) {
-        this.enchantment = enchantment
+        _enchantments.add(enchantment)
     }
 
-    fun hasEnchantment() = enchantment != null
+    fun mayBeEnchanted(): Boolean {
+        return _enchantments.size < MAX_ENCHANTMENTS
+    }
+
     fun removeEnchantment() {
-        enchantment = null
+        _enchantments.removeAt(0)
     }
 }
+
+private const val MAX_ENCHANTMENTS = 3

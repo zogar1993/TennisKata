@@ -4,12 +4,10 @@ import enchantment.domain.Enchantment
 import enchantment.domain.Enchantments
 import enchantment.domain.ShouldItDisenchant
 import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldContainAll
 import org.amshove.kluent.shouldContainSame
 import org.junit.Test
 
 class Randomness {
-
     @Test
     fun `get one at random should return any enchantment`() {
         val enchantments = (1..100).map { Enchantments { it }.getOneAtRandom() }
@@ -18,7 +16,7 @@ class Randomness {
 
     @Test
     fun `get one at random should never return excepted enchantment`() {
-        val enchantments = (1..100).map { Enchantments { it }.getOneAtRandom(AN_ENCHANTMENT) }
+        val enchantments = (1..100).map { Enchantments { it }.getOneAtRandomExceptFor(listOf(AN_ENCHANTMENT)) }
         enchantments.toSet().shouldContainSame(ALL_ENCHANTMENTS - AN_ENCHANTMENT)
     }
 

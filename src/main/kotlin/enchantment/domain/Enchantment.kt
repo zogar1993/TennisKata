@@ -1,11 +1,11 @@
 package enchantment.domain
 
-enum class Enchantment(val prefix: String, val enchantment: String) {
-    Ice(prefix = "Icy", enchantment = "+5 ice damage"),
-    Fire(prefix = "Inferno", enchantment = "+5 fire damage"),
-    Lifesteal(prefix = "Vampire", enchantment = "+5 lifesteal"),
-    Agility(prefix = "Quick", enchantment = "+5 agility"),
-    Strength(prefix = "Angry", enchantment = "+5 strength");
+enum class Enchantment(val prefix: String, val attribute: String) {
+    Ice(prefix = "Icy", attribute = "+5 ice damage"),
+    Fire(prefix = "Inferno", attribute = "+5 fire damage"),
+    Lifesteal(prefix = "Vampire", attribute = "+5 lifesteal"),
+    Agility(prefix = "Quick", attribute = "+5 agility"),
+    Strength(prefix = "Angry", attribute = "+5 strength");
 
     companion object {
         fun from(name: String): Enchantment {

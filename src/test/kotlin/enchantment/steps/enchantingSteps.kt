@@ -10,14 +10,12 @@ import enchantment.domain.Enchantment
 import enchantment.domain.Enchantments
 import enchantment.domain.ShouldItDisenchant
 import enchantment.domain.Weapon
-import enchantment.domain.errors.AlreadyEnchantedError
+import enchantment.domain.errors.AlreadyAtMaximumEnchantments
 import enchantment.domain.errors.NotEnchantedError
 import enchantment.infrastructure.WeaponsInMemory
 import io.mockk.every
 import io.mockk.spyk
-import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldBeFalse
-import org.amshove.kluent.shouldBeInstanceOf
+import org.amshove.kluent.*
 import kotlin.test.fail
 
 class EnchantingSteps {
@@ -56,6 +54,15 @@ class EnchantingSteps {
         weapons.put(ID, weapon)
     }
 
+    @Given("a weapon enchanted 3 times")
+    fun `a weapon enchanted 3 times`() {
+        val weapon = Weapon(WEAPON_NAME, MIN_DAMAGE, MAX_DAMAGE, ATTACK_SPEED)
+        weapon.add(Enchantment.Agility)
+        weapon.add(Enchantment.Strength)
+        weapon.add(Enchantment.Lifesteal)
+        weapons.put(ID, weapon)
+    }
+
     @Given("rerolling an enchantment will use the {string} enchantment")
     fun `rerolling an enchantment will use the {enchantment} enchantment`(enchantment: String) {
         every { enchantments.getOneAtRandomExceptFor(any()) } returns Enchantment.from(enchantment)
@@ -71,6 +78,12 @@ class EnchantingSteps {
         enchantWeapon(ID)
     }
 
+    @When("the weapon is enchanted with {string}")
+    fun `the weapon is enchanted with {enchantment}`(enchantment: String) {
+        every { enchantments.getOneAtRandom() } returns Enchantment.from(enchantment)
+        enchantWeapon(ID)
+    }
+
     @When("the weapons enchantment is rerolled")
     fun `he weapons enchantment is rerolled`() {
         rerollEnchantmentOnWeapon(ID)
@@ -78,7 +91,7 @@ class EnchantingSteps {
 
     @When("the weapon is enchanted, it should fail because it was already enchanted")
     fun `the weapon is enchanted, it should fail because it was already enchanted`() {
-        runCatching { enchantWeapon(ID) }.onSuccess { fail("Expected an exception") }.onFailure { it.shouldBeInstanceOf<AlreadyEnchantedError>() }
+        runCatching { enchantWeapon(ID) }.onSuccess { fail("Expected an exception") }.onFailure { it.shouldBeInstanceOf<AlreadyAtMaximumEnchantments>() }
     }
 
 
@@ -98,14 +111,22 @@ class EnchantingSteps {
     fun `the weapon should have the attribute {attribute}`(attribute: String) {
         val weapon = weapons.findOne(ID)
 
-        weapon.attribute.shouldBeEqualTo(attribute)
+        weapon.attributes.shouldContainSame(listOf(attribute))
+    }
+
+    @Then("the weapon should have the attributes {string} {string} {string}")
+    fun `the weapon should have the attribute {attribute} {attribute} {attribute}`(
+            attribute1: String, attribute2: String, attribute3: String) {
+        val weapon = weapons.findOne(ID)
+
+        weapon.attributes.shouldContainSame(listOf(attribute1, attribute2, attribute3))
     }
 
     @Then("the weapon should be disenchanted")
     fun `the weapon should be disenchanted`() {
         val weapon = weapons.findOne(ID)
 
-        weapon.hasEnchantment().shouldBeFalse()
+        weapon.enchantments.shouldBeEmpty()
     }
 
     companion object {
