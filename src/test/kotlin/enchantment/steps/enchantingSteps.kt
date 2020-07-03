@@ -125,6 +125,14 @@ class EnchantingSteps {
         weapon.attributes.shouldContainSame(listOf(attribute1, attribute2, attribute3))
     }
 
+    @Then("the weapon should have the prefixes {string} {string} {string}")
+    fun `the weapon should have the attribute {prefix} {prefix} {prefix}`(
+            prefix1: String, prefix2: String, prefix3: String) {
+        val weapon = weapons.findOne(ID)
+
+        weapon.name.split(" ").subList(0, 3).shouldContainSame(listOf(prefix1, prefix2, prefix3))
+    }
+
     @Then("the weapon should be disenchanted")
     fun `the weapon should be disenchanted`() {
         val weapon = weapons.findOne(ID)

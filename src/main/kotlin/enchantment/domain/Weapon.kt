@@ -6,7 +6,8 @@ class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpe
     val enchantments: List<Enchantment> = _enchantments
     val attributes get() = enchantments.map { it.attribute }
 
-    val name get() = if (enchantments.isEmpty()) baseName else "${enchantments[0].prefix} $baseName"
+    val name get() = "$prefixes $baseName".trim()
+
     fun add(enchantment: Enchantment) {
         _enchantments.add(enchantment)
     }
@@ -17,6 +18,8 @@ class Weapon(name: String, val damageMin: Int, val damageMax: Int, val attackSpe
 
     fun mayBeEnchanted() = _enchantments.size < MAX_ENCHANTMENTS
     fun isEnchanted() = enchantments.isNotEmpty()
+
+    private val prefixes get() = enchantments.joinToString(" ") { it.prefix }
 }
 
 private const val MAX_ENCHANTMENTS = 3
